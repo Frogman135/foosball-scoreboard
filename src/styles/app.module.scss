@@ -1,0 +1,27 @@
+@use 'setup' as *;
+
+.container {
+	max-width: 180rem;
+}
+
+.page {
+	--font-size: vw($scale);
+	align-items: center;
+	display: flex;
+	flex-grow: 1;
+	font-family: var(--font-aeonik-sans);
+	gap: rem(64);
+	justify-items: center;
+	padding: 0;
+
+	@include breakpoint-up($breakpoint-mobile) {
+		--font-size: #{$scale}px;
+	}
+}
+
+.main {
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+	width: 100%;
+}

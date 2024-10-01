@@ -1,0 +1,35 @@
+@use 'sass:list';
+@use 'sass:map';
+@use '/src/styles/variables/breakpoints' as *;
+
+@mixin breakpoint-up($breakpoint) {
+	@include is-breakpoint($breakpoint);
+
+	@media screen and (min-width: #{$breakpoint}px) {
+		@content;
+	}
+}
+
+@mixin breakpoint-down($breakpoint) {
+	@include is-breakpoint($breakpoint);
+
+	@media screen and (max-width: #{$breakpoint - 1}px) {
+		@content;
+	}
+}
+
+@mixin breakpoint-between($min-breakpoint, $max-breakpoint) {
+	@include is-breakpoint($min-breakpoint);
+
+	@media screen and (min-width: #{$min-breakpoint}px) and (max-width: #{$max-breakpoint - 1}px) {
+		@content;
+	}
+}
+
+@mixin is-breakpoint($value) {
+	$exists: list.index(map.values($breakpoints), $value);
+
+	@if not $exists {
+		@error "Size not in $breakpoint-map" #{$value};
+	}
+}
