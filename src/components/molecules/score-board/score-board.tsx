@@ -2,6 +2,7 @@ import React from 'react';
 import { ScoreBoardProps } from '@/types';
 import styles from './score-board.module.scss';
 import classNames from 'classnames';
+import { motion } from 'framer-motion';
 
 const MatchTable: React.FC<ScoreBoardProps> = ({ matches, teams }) => {
 	const tableMinWidth: string = 100 * (teams.length + 1) + 'px';
@@ -18,13 +19,16 @@ const MatchTable: React.FC<ScoreBoardProps> = ({ matches, teams }) => {
 						role='columnheader'
 					></div>
 					{teams.map((team, index) => (
-						<div
+						<motion.div
 							key={`header-${index}`}
+							animate={{ opacity: 1, scale: 1 }}
 							className={classNames(styles.cell, styles.header)}
+							initial={{ opacity: 0, scale: 0.6 }}
 							role='columnheader'
+							transition={{ duration: 0.3, delay: index * 0.1 }}
 						>
 							{team.name}
-						</div>
+						</motion.div>
 					))}
 				</div>
 				{teams.map((rowteam, rowIndex) => (
@@ -32,12 +36,15 @@ const MatchTable: React.FC<ScoreBoardProps> = ({ matches, teams }) => {
 						key={`row-${rowIndex}`}
 						className={styles.row}
 					>
-						<div
+						<motion.div
+							animate={{ opacity: 1, scale: 1 }}
 							className={classNames(styles.cell, styles.header)}
+							initial={{ opacity: 0, scale: 0.6 }}
 							role='cell'
+							transition={{ duration: 0.3, delay: rowIndex * 0.1 }}
 						>
 							{rowteam.name}
-						</div>
+						</motion.div>
 						{teams.map((cellteam, cellIndex) => {
 							const isSameTeam: boolean = rowteam.id === cellteam.id;
 							const isMatched: string | undefined = matches.find(
@@ -95,12 +102,14 @@ const MatchTable: React.FC<ScoreBoardProps> = ({ matches, teams }) => {
 							};
 
 							return (
-								<div
+								<motion.div
 									key={`cell-${cellIndex}`}
+									animate={{ opacity: 1, scale: 1 }}
 									className={classNames(styles.cell, {
 										[styles.disabled]: isSameTeam,
 										[styles.highlight]: isMatched,
 									})}
+									initial={{ opacity: 0, scale: 0.6 }}
 									role='cell'
 									onMouseEnter={(e) =>
 										isMatched && applyHoverStates(e.target, cellIndex)
@@ -108,9 +117,10 @@ const MatchTable: React.FC<ScoreBoardProps> = ({ matches, teams }) => {
 									onMouseLeave={(e) =>
 										isMatched && removeHoverStates(e.target, cellIndex)
 									}
+									transition={{ duration: 0.3, delay: cellIndex * 0.1 }}
 								>
 									{isSameTeam ? '' : isMatched ?? '-'}
-								</div>
+								</motion.div>
 							);
 						})}
 					</div>
