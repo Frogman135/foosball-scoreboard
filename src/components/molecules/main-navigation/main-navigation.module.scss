@@ -1,0 +1,43 @@
+@use '/src/styles/setup' as *;
+
+.component {
+	background-color: #fff;
+	color: $grey-dark;
+	filter: invert(1);
+	left: 0;
+	margin-bottom: rem(24);
+	mix-blend-mode: difference;
+	padding: 1rem 0;
+	position: sticky;
+	right: 0;
+	top: 0;
+	z-index: 99;
+
+	.wrapper {
+		align-items: center;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.logo {
+		align-items: center;
+		display: flex;
+	}
+
+	.nav {
+		align-items: center;
+		display: flex;
+		gap: rem(24);
+	}
+
+	.navLink {
+		color: currentColor;
+		font-size: rem(15);
+		text-decoration: none;
+	}
+
+	.navLink:focus,
+	.navLink:hover {
+		text-decoration: underline;
+	}
+}
