@@ -44,8 +44,8 @@ const MatchTable: React.FC<ScoreBoardProps> = ({ matches, teams }) => {
 							role='cell'
 							transition={{ duration: 0.3, delay: rowIndex * 0.1 }}
 						>
-							<div className={styles.headerTitle}>{rowteam.name}</div>
-							<div className={styles.headerText}>
+							<div className={styles.cellTitle}>{rowteam.name}</div>
+							<div className={styles.cellText}>
 								{rowteam.members?.join(', ')}
 							</div>
 						</motion.div>
