@@ -1,6 +1,13 @@
 export interface Team {
 	id: number;
+	members?: string[];
 	name: string;
+}
+
+export interface TeamWithScores extends Team {
+	losses: number;
+	points: number;
+	wins: number;
 }
 
 export interface Match {
@@ -13,4 +20,8 @@ export interface Match {
 export interface ScoreBoardProps {
 	teams: Team[];
 	matches: Match[];
+}
+
+export interface LeaderBoardProps {
+	teams: TeamWithScores[];
 }

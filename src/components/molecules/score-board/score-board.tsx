@@ -1,11 +1,11 @@
 import React from 'react';
-import { ScoreBoardProps } from '@/types';
+import { Match, ScoreBoardProps } from '@/types';
 import styles from './score-board.module.scss';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 
 const MatchTable: React.FC<ScoreBoardProps> = ({ matches, teams }) => {
-	const tableMinWidth: string = 100 * (teams.length + 1) + 'px';
+	const tableMinWidth: string = 150 * (teams.length + 1) + 'px';
 
 	return (
 		<div className={styles.tableContainer}>
@@ -27,7 +27,8 @@ const MatchTable: React.FC<ScoreBoardProps> = ({ matches, teams }) => {
 							role='columnheader'
 							transition={{ duration: 0.3, delay: index * 0.1 }}
 						>
-							{team.name}
+							<div className={styles.cellTitle}>{team.name}</div>
+							<div className={styles.cellText}>{team.members?.join(', ')}</div>
 						</motion.div>
 					))}
 				</div>
@@ -43,14 +44,30 @@ const MatchTable: React.FC<ScoreBoardProps> = ({ matches, teams }) => {
 							role='cell'
 							transition={{ duration: 0.3, delay: rowIndex * 0.1 }}
 						>
-							{rowteam.name}
+							<div className={styles.headerTitle}>{rowteam.name}</div>
+							<div className={styles.headerText}>
+								{rowteam.members?.join(', ')}
+							</div>
 						</motion.div>
 						{teams.map((cellteam, cellIndex) => {
 							const isSameTeam: boolean = rowteam.id === cellteam.id;
-							const isMatched: string | undefined = matches.find(
+							const isMatched: Match | undefined = matches.find(
 								(match) =>
 									match.team1 === rowteam.id && match.team2 === cellteam.id
-							)?.result;
+							);
+
+							const isTeamOneWinner: boolean = (() => {
+								if (!isMatched) return false;
+								const scores = isMatched.result.match(/\d+/g);
+								if (!scores || scores.length < 2) return false;
+								return parseInt(scores[0]) > parseInt(scores[1]);
+							})();
+
+							const winningTeam = teams.find(
+								(team) =>
+									team.id ===
+									(isTeamOneWinner ? isMatched?.team1 : isMatched?.team2)
+							)?.name;
 
 							const queryHeaders = (
 								target: EventTarget,
@@ -119,7 +136,12 @@ const MatchTable: React.FC<ScoreBoardProps> = ({ matches, teams }) => {
 									}
 									transition={{ duration: 0.3, delay: cellIndex * 0.1 }}
 								>
-									{isSameTeam ? '' : isMatched ?? '-'}
+									<div className={styles.cellTitle}>
+										{isSameTeam ? '' : isMatched?.result ?? '-'}
+									</div>
+									<div className={styles.cellText}>
+										{isMatched ? `🏆 ${winningTeam}` : '-'}
+									</div>
 								</motion.div>
 							);
 						})}

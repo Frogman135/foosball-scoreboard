@@ -23,6 +23,7 @@
 	border: 1px solid color.scale(#979ba3, $alpha: -90%);
 	display: flex;
 	flex: 1;
+	flex-direction: column;
 	justify-content: center;
 	padding: rem(8);
 	transition: background-color 0.2s ease, color 0.2s ease;
@@ -32,11 +33,18 @@
 	&.header {
 		background-color: $playful-peach;
 		color: $black;
-		font-weight: 700;
 
 		&.hover {
 			background-color: color.scale($playful-peach, $lightness: 40%);
 		}
+	}
+
+	.cellTitle {
+		font-weight: 700;
+	}
+
+	.cellText {
+		font-weight: 400;
 	}
 
 	&.highlight {

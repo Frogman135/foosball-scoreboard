@@ -39,7 +39,7 @@ const Home = ({ teams, matches }: HomeProps) => {
 				<title>Signifly Foosball Scoreboard</title>
 				<meta
 					name='description'
-					content='Signifly Foosball Scoreboard'
+					content='Signifly Foosball Score board'
 				/>
 				<meta
 					name='viewport'
