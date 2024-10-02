@@ -1,0 +1,46 @@
+@use 'sass:color';
+@use '/src/styles/setup' as *;
+
+.tableContainer {
+	overflow-x: auto;
+}
+
+.table {
+	display: flex;
+	flex-direction: column;
+	min-width: 500px;
+	width: 100%;
+}
+
+.row {
+	display: flex;
+	flex-direction: row;
+
+	&:hover {
+		.cell:not(.header) {
+			background-color: color.scale($playful-peach, $lightness: 40%);
+		}
+	}
+}
+
+.cell {
+	align-items: center;
+	aspect-ratio: 4/1;
+	background-clip: padding-box;
+	border: 1px solid color.scale(#979ba3, $alpha: -90%);
+	display: flex;
+	flex: 1;
+	justify-content: center;
+	padding: rem(8);
+	transition: background-color 0.2s ease, color 0.2s ease;
+
+	&.header {
+		background-color: $playful-peach;
+		color: $black;
+		font-weight: 700;
+
+		&.hover {
+			background-color: color.scale($playful-peach, $lightness: 40%);
+		}
+	}
+}
