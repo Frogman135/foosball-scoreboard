@@ -139,9 +139,9 @@ const MatchTable: React.FC<ScoreBoardProps> = ({ matches, teams }) => {
 									<div className={styles.cellTitle}>
 										{isSameTeam ? '' : isMatched?.result ?? '-'}
 									</div>
-									<div className={styles.cellText}>
-										{isMatched ? `🏆 ${winningTeam}` : '-'}
-									</div>
+									{isMatched && (
+										<div className={styles.cellText}>🏆 {winningTeam}</div>
+									)}
 								</motion.div>
 							);
 						})}
