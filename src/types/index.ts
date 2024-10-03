@@ -1,5 +1,11 @@
+export interface Match {
+	opponent: number;
+	result: string;
+}
+
 export interface Team {
 	id: number;
+	matches: Match[];
 	members?: string[];
 	name: string;
 }
@@ -10,16 +16,8 @@ export interface TeamWithScores extends Team {
 	wins: number;
 }
 
-export interface Match {
-	id: number;
-	team1: number;
-	team2: number;
-	result: string;
-}
-
 export interface ScoreBoardProps {
 	teams: Team[];
-	matches: Match[];
 }
 
 export interface LeaderBoardProps {

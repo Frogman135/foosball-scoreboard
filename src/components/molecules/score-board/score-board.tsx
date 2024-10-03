@@ -4,7 +4,7 @@ import styles from './score-board.module.scss';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 
-const MatchTable: React.FC<ScoreBoardProps> = ({ matches, teams }) => {
+const MatchTable: React.FC<ScoreBoardProps> = ({ teams }) => {
 	const tableMinWidth: string = 150 * (teams.length + 1) + 'px';
 
 	return (
@@ -32,7 +32,7 @@ const MatchTable: React.FC<ScoreBoardProps> = ({ matches, teams }) => {
 						</motion.div>
 					))}
 				</div>
-				{teams.map((rowteam, rowIndex) => (
+				{teams.map((homeTeam, rowIndex) => (
 					<div
 						key={`row-${rowIndex}`}
 						className={styles.row}
@@ -44,16 +44,15 @@ const MatchTable: React.FC<ScoreBoardProps> = ({ matches, teams }) => {
 							role='cell'
 							transition={{ duration: 0.3, delay: rowIndex * 0.1 }}
 						>
-							<div className={styles.cellTitle}>{rowteam.name}</div>
+							<div className={styles.cellTitle}>{homeTeam.name}</div>
 							<div className={styles.cellText}>
-								{rowteam.members?.join(', ')}
+								{homeTeam.members?.join(', ')}
 							</div>
 						</motion.div>
-						{teams.map((cellteam, cellIndex) => {
-							const isSameTeam: boolean = rowteam.id === cellteam.id;
-							const isMatched: Match | undefined = matches.find(
-								(match) =>
-									match.team1 === rowteam.id && match.team2 === cellteam.id
+						{teams.map((awayTeam, cellIndex) => {
+							const isSameTeam: boolean = homeTeam.id === awayTeam.id;
+							const isMatched: Match | undefined = homeTeam.matches.find(
+								(match) => match.opponent === awayTeam.id
 							);
 
 							const isTeamOneWinner: boolean = (() => {
@@ -66,7 +65,7 @@ const MatchTable: React.FC<ScoreBoardProps> = ({ matches, teams }) => {
 							const winningTeam = teams.find(
 								(team) =>
 									team.id ===
-									(isTeamOneWinner ? isMatched?.team1 : isMatched?.team2)
+									(isTeamOneWinner ? homeTeam.id : isMatched?.opponent)
 							)?.name;
 
 							const queryHeaders = (
