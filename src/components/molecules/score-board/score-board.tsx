@@ -51,7 +51,7 @@ const MatchTable: React.FC<ScoreBoardProps> = ({ teams }) => {
 						</motion.div>
 						{teams.map((awayTeam, cellIndex) => {
 							const isSameTeam: boolean = homeTeam.id === awayTeam.id;
-							const isMatched: Match | undefined = homeTeam.matches.find(
+							const isMatched: Match | undefined = homeTeam.matches?.find(
 								(match) => match.opponent === awayTeam.id
 							);
 
