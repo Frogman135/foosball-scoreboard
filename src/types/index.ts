@@ -5,7 +5,7 @@ export interface Match {
 
 export interface Team {
 	id: number;
-	matches: Match[];
+	matches?: Match[];
 	members?: string[];
 	name: string;
 }
